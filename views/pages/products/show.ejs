@@ -1,0 +1,29 @@
+<%- include('../../layouts/header.ejs') %>
+    <div class="row">
+        <div class="col-md-4">    
+            <div class="card">
+                <div class="card-header">
+                    <div class="float-left">    
+                        <h5 class="card-title">
+                            <%= product.name %>
+                        </h5>
+                    </div>
+
+                    <div class="float-right">
+                        <a href="/products" class="btn btn-sm btn-secondary text-light">
+                            Back
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p>Rp. <%= product.price %></p>
+                    <p><%= product.description %></p>
+                </div>
+
+                <div class="card-footer">
+                    <%= new Date(product.createdAt).getFullYear() %>
+                </div>
+            </div>    
+        </div>
+    </div>
+<%- include('../../layouts/footer.ejs') %>

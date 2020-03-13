@@ -1,0 +1,46 @@
+<%- include('../../layouts/header.ejs') %>
+    <a href="/products/create" class="btn btn-sm btn-secondary text-light">
+        Create New Product
+    </a>    
+
+    <hr>
+    
+    <% if(products.length > 0) { %>    
+        <div class="row">
+            <% products.forEach(product => { %>
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">
+                                <%= product.name %>
+                            </h5>
+                        </div>
+
+                        <div class="card-body">
+                            <strong>Price: </strong> Rp. <%= product.price %>
+                        </div>
+
+                        <div class="card-footer">
+                            <form action="/products/destroy" method="POST">
+                                <input type="hidden" name="id" value="<%= product.id %>">
+                                <button type="submit" class="btn btn-sm btn-danger float-right ml-2" onclick="return confirm('Delete <%= product.name %> ?')">
+                                    Delete
+                                </button>
+                            </form>
+                            <a href="/products/<%= product.id %>" class="btn btn-sm btn-info float-right ml-2">
+                                Detail
+                            </a>
+                            <a href="/products/<%= product.id %>/edit" class="btn btn-sm btn-warning text-light float-right ml-2">
+                                Edit
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    <% } else { %>
+        <p class="text-danger">
+            No Product Found
+        </p>
+    <% } %>
+<%- include('../../layouts/footer.ejs') %>

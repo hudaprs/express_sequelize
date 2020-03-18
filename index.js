@@ -40,10 +40,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 const homeRoutes = require('./routes/home');
 const userRoutes = require('./routes/user');
 const productRoutes = require('./routes/product');
+const categoryRoutes = require('./routes/category');
 
 app.use(homeRoutes);
 app.use('/users', userRoutes);
 app.use('/products', productRoutes);
+app.use('/categories', categoryRoutes);
 
 app.listen(port, () => {
   console.log(`Server started at port ${port}`);

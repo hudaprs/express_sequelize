@@ -1,0 +1,42 @@
+<%- include('../../layouts/header.ejs') %>
+    <a href="/categories/create" class="btn btn-sm btn-secondary text-light">
+        Create New Category
+    </a>    
+
+    <hr>
+    
+    <% if(categories.length > 0) { %>    
+        <div class="row">
+            <% categories.forEach(category => { %>
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">
+                                <%= category.name %>
+                            </h5>
+                        </div>
+
+                        <div class="card-footer">
+                            <form action="/categories/destroy" method="POST">
+                                <input type="hidden" name="id" value="<%= category.id %>">
+                                <button type="submit" class="btn btn-sm btn-danger float-right ml-2" onclick="return confirm('Delete <%= category.name %> ?')">
+                                    Delete
+                                </button>
+                            </form>
+                            <a href="/categories/<%= category.id %>/edit" class="btn btn-sm btn-warning text-light float-right ml-2">
+                                Edit
+                            </a>
+                            <a href="/categories/<%= category.id %>" class="btn btn-sm btn-info float-right ml-2">
+                                Detail
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    <% } else { %>
+        <p class="text-danger">
+            No Category Found
+        </p>
+    <% } %>
+<%- include('../../layouts/footer.ejs') %>

@@ -1,0 +1,25 @@
+<%- include('../../layouts/header.ejs') %>
+    <div class="row">
+        <div class="col-md-4">    
+            <div class="card">
+                <div class="card-header">
+                    <div class="float-left">    
+                        <h5 class="card-title">
+                            <%= category.name %>
+                        </h5>
+                    </div>
+
+                    <div class="float-right">
+                        <a href="/categories" class="btn btn-sm btn-secondary text-light">
+                            Back
+                        </a>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    Created At: <%= date %>
+                </div>
+            </div>    
+        </div>
+    </div>
+<%- include('../../layouts/footer.ejs') %>

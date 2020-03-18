@@ -1,6 +1,7 @@
 const Product = require('../models').Product
+const Category = require('../models').Category
 
-exports.index = (req, res, next) => {
+exports.index = async (req, res, next) => {
   Product.findAll()
   .then(products => {
     res.render('pages/products', {
@@ -12,19 +13,26 @@ exports.index = (req, res, next) => {
   .catch(err => console.log(err))
 }
 
-exports.create = (req, res, next) => {
-  res.render('pages/products/create', {
-    title: 'Create Product',
-    url: '/products'
-  })
+exports.create = async (req, res, next) => {
+  try {
+    const categories = await Category.findAll()
+    res.render('pages/products/create', {
+      title: 'Create Product',
+      url: '/products',
+      categories
+    })
+  } catch(err) {
+    console.log(err)
+  }
 }
 
 exports.store = (req, res, next) => {
-  const { name, price, description } = req.body
+  const { name, price, description, category } = req.body
   Product.create({
     name,
     price,
-    description
+    description,
+    categoryId: category
   })
   .then(product => {
     console.log('Product Created')
@@ -35,11 +43,14 @@ exports.store = (req, res, next) => {
 
 exports.show = (req, res, next) => {
   const { id } = req.params
-  Product.findByPk(id)
+  Product.findByPk(id, {
+    include: 'category'
+  })
   .then(product => {
     if(!product) {
       res.redirect('/products')
     } else {
+      console.log(product)
       res.render('pages/products/show', {
         title: `Detail ${product.name}`,
         url: '/products',
